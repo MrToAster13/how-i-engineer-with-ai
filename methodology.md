@@ -22,7 +22,7 @@ This is the gate that keeps AI output from turning into slop.
 
 - Every change gets a `/code-review` pass; a `/simplify` pass strips the cruft.
 - Commits stay small and conventional (`feat:`, `fix:`, `security(phase N):`), one logical change each.
-- Tests run before anything merges. The auditor ships 116 of them.
+- Tests run before anything merges. The auditor ships 123 of them.
 
 ## 5. Steer with instruction files
 
@@ -30,7 +30,7 @@ I put an `AGENTS.md` or `CLAUDE.md` at the top of a repo to set the rules the AI
 
 ## 6. Guardrails against the obvious mistakes
 
-- A pre-commit hook blocks dangerous git commands (force-push, hard reset, and friends) before they run.
+- A guardrail hook blocks dangerous git commands (force-push, hard reset, and friends) before Claude can run them.
 - A permission allowlist scopes what the agent can do without asking.
 - Honesty rules in the instruction files: never claim work that isn't built, never fabricate a result.
 

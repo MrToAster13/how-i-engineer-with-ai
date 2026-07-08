@@ -34,6 +34,8 @@ Two mechanisms enforce it:
 
 I also had to re-derive the confidence denominator so that rules outside the selected profile couldn't inflate or tank the score. That fix is documented in the changelog.
 
+The same principle guards the 800-53 control rollup. When a merged evidence file repeats a rule with conflicting verdicts, a verdict precedence keeps the most decision-critical one — so an errored check can never be buried under a later pass and read as `Implemented`. A code-review pass caught that this was only half-enforced (only a `fail` was protected); the fix ships with regression tests in both directions.
+
 The point: the tool would rather under-report than certify a host it didn't really assess. That's the judgment a GRC role is actually hiring for.
 
 ## Security hardening
@@ -49,7 +51,7 @@ The scanner runs commands on remote hosts over SSH, so it's a real attack surfac
 
 This is the part the repo is really about.
 
-- **I drove, the AI drafted.** Claude Code wrote code against my design; I reviewed every change and owned every decision. All 31 commits carry a `Co-Authored-By: Claude` trailer — I don't hide that.
+- **I drove, the AI drafted.** Claude Code wrote code against my design; I reviewed every change and owned every decision. Every commit carries a `Co-Authored-By: Claude` trailer — I don't hide that.
 - **Phased build.** A walking skeleton first, then five agents hardened distinct modules with exclusive file ownership to avoid collisions, then the four security phases, then a cleanup pass.
 - **Review discipline in the loop.** Commits reference repeated `/code-review` and `/simplify` passes. Conventional commit style throughout (`feat:`, `fix:`, `security(phase N):`).
 - **Steering for honesty.** An `AGENTS.md` file (my own writing/organization rules — see [`../artifacts/`](../artifacts/)) kept the docs plain and free of filler. There's literally a commit titled `docs: replace vague adjectives per AGENTS.md`.
@@ -58,7 +60,7 @@ The result reads like something a person built with care, because the review gat
 
 ## Results
 
-- **116 tests, all passing** (verified by running the suite, not by trusting the count). They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
+- **123 tests, all passing** (verified by running the suite, not by trusting the count), gated in GitHub Actions across Python 3.8–3.13 on every push, plus a local pre-commit hook that runs them before each commit. They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
 - **End-to-end offline render works** — `python smoketest.py` produces a full HTML report with executive summary, coverage map, severity breakdown, and fleet trend.
 - **Live path validated** once, by hand, against a real cloud Ubuntu 22.04 host, with the negative paths checked. The runbook is in `docs/validation.md`.
 - **A 90-entry CIS-to-NIST-800-53 / ISO-27001 crosswalk**, labeled non-authoritative and orientation-only throughout — because a hand-curated mapping should never be mistaken for an official control assessment.
@@ -67,11 +69,10 @@ The result reads like something a person built with care, because the review gat
 
 I'd rather name these than have an interviewer find them.
 
-- **No CI yet.** 116 tests pass, but nothing runs them automatically. This is the first thing I'd add. It's the softest spot in the "validation complete" claim.
-- **Live-validated on one host, once.** Offline logic is well covered; a real multi-host fleet run at scale hasn't happened. I don't yet know how it behaves across 200 hosts.
+- **Live-validated on one host, once.** Offline logic is well covered (123 tests, now gated in CI); a real multi-host fleet run at scale hasn't happened. I don't yet know how it behaves across 200 hosts. This is the softest spot in the "validation complete" claim.
 - **Ubuntu-only, assessment-only, active-scan-only.** No other OS, no auto-remediation, no CMDB ingestion. All deliberately out of scope for v1 and documented as such.
 - **The crosswalk is indicative, not authoritative.** It's labeled that way everywhere, but a reader skimming the report could over-trust it.
 
 ## What I'd do next
 
-Add GitHub Actions CI with the test suite as a merge gate. Run a real multi-host fleet and document the results. Then decide whether a second OS profile earns its complexity.
+Run a real multi-host fleet and document the results. Then decide whether a second OS profile earns its complexity.
