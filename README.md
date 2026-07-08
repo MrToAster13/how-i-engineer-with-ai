@@ -15,12 +15,12 @@ A portfolio that blurs this line falls apart the first time someone asks a follo
 
 **Integrated, with credit:**
 - The skill and agent frameworks I run on top of Claude Code. I did not write these. I chose and operate them. The full list and its sources are in [`toolkit.md`](toolkit.md).
-- Where a project started from someone else's code, I label it. The [Market Cipher Replay](case-studies/market-cipher-replay.md) case study is exactly that: the part of a fork I actually wrote, pulled into a clean repo of its own.
+- Where a project started from someone else's code, I label it. The [WaveTrend Replay](case-studies/wavetrend-replay.md) case study is exactly that: the part of a fork I actually wrote, pulled into a clean repo of its own.
 
 ## Case studies
 
 - **[GRC Fleet Auditor](case-studies/grc-fleet-auditor.md)** (flagship) — a CIS compliance auditor for a fleet of Ubuntu hosts, built to never certify a host it didn't actually assess. 123 tests, CI, a real security-hardening arc. Code: [`MrToAster13/grc-fleet-scanner`](https://github.com/MrToAster13/grc-fleet-scanner).
-- **[Market Cipher Replay](case-studies/market-cipher-replay.md)** — a zero-dependency backtesting engine I built inside a fork of a trading bot, then extracted into a repo that's 100% mine. The case study leads with the fork, not around it. Code: [`MrToAster13/market-cipher-replay`](https://github.com/MrToAster13/market-cipher-replay).
+- **[WaveTrend Replay](case-studies/wavetrend-replay.md)** — a zero-dependency backtesting engine I built inside a fork of a trading bot, then extracted into a repo that's 100% mine. The case study leads with the fork, not around it. Code: [`MrToAster13/wavetrend-replay`](https://github.com/MrToAster13/wavetrend-replay).
 - **[clear-not-compact](case-studies/clear-not-compact.md)** — a Claude Code plugin I shipped: persist a session to disk and resume it, instead of `/compact`. Proof that I build the AI tooling I use, not just use it. Code: [`MrToAster13/clear-not-compact`](https://github.com/MrToAster13/clear-not-compact).
 - **[Detection Engineering Homelab](https://github.com/MrToAster13/detection-engineering-homelab)** — an Elastic SOC lab with detection rules written against real internet attack traffic, including a triage that proved a successful root login during a brute-force wave was a benign admin, not a breach.
 

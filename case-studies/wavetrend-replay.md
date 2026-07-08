@@ -1,8 +1,8 @@
-# Market Cipher Replay — a backtesting engine, extracted honestly
+# WaveTrend Replay — a backtesting engine, extracted honestly
 
 A zero-dependency terminal tool that replays candle history bar by bar and paper-trades a strategy against a reconstructed Market Cipher B / WaveTrend oscillator. I wrote it, and this is the honest story of where it came from.
 
-Code: [`MrToAster13/market-cipher-replay`](https://github.com/MrToAster13/market-cipher-replay)
+Code: [`MrToAster13/wavetrend-replay`](https://github.com/MrToAster13/wavetrend-replay)
 
 ## The honest origin
 
