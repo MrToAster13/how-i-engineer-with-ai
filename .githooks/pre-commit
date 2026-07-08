@@ -20,7 +20,7 @@ for f in $staged; do
   content=$(git show ":$f" 2>/dev/null) || continue
   printf '%s' "$content" | grep -Iq . || continue   # skip binary files
 
-  m=$(printf '%s\n' "$content" | grep -nEi "$secret_re")
+  m=$(printf '%s\n' "$content" | grep -nEi -e "$secret_re")
   if [ -n "$m" ]; then
     echo "BLOCKED  $f  — possible credential/secret:"
     printf '%s\n' "$m" | sed 's/^/      /'
