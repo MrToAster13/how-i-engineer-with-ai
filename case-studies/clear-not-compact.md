@@ -2,7 +2,7 @@
 
 A Claude Code plugin I built and published. Instead of `/compact`, which swaps a session's real history for a lossy summary you then keep working on top of, it runs a persist-then-clear loop: write the session state to disk, `/clear` to an empty context, and read it back on purpose.
 
-Code: [`MrToAster13/clear-not-compact`](https://github.com/MrToAster13/clear-not-compact)
+Code: [`MrToAster13/mrtoaster13-plugins`](https://github.com/MrToAster13/mrtoaster13-plugins)
 
 ## What it is
 
