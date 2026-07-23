@@ -4,7 +4,7 @@ These are the Claude Code skill artifacts I built or modified. They're the sharp
 
 Provenance labels are load-bearing here. Built means my own design and code from scratch; Modified means I started from someone else's skill and credit them, and their license ships with it. The definitions live in [`CONTEXT.md`](CONTEXT.md). Where a skill bundles a script or a harness, I describe what the design does — not results I'm claiming to have produced.
 
-**Provenance at a glance:** 8 Built, 2 Modified.
+**Provenance at a glance:** 9 Built, 2 Modified.
 
 ## Analysis systems
 
@@ -93,6 +93,14 @@ A small formatter that turns missed practice-exam questions into tab-separated r
 **What it proves:** modestly, the automate-the-boring-parts habit.
 
 **Provenance:** Built. I'll be straight about this one: it's light, and it's the easiest thing here to cut.
+
+### pre-push
+
+One orchestrator for the pre-push ritual. It detects whether the repo is Python or Node, picks the matching lint/format/test tooling, then runs simplify → review → security → test → commit as gated stages. It stops only on a genuine failure: flaky network during a test run gets retried three times first, and it flips non-executable shell scripts to mode `100755` so they don't land broken on a Linux install. The runnable skill ships in [`mrtoaster13-plugins`](https://github.com/MrToAster13/mrtoaster13-plugins/tree/main/plugins/autonomous-workflows/skills/pre-push).
+
+**What it proves:** turning a manual release checklist into a deterministic pipeline, with the judgment calls — what's a real failure versus noise — encoded in the gates instead of left to the moment.
+
+**Provenance:** Built.
 
 ## Also shipped
 
