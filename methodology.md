@@ -22,7 +22,7 @@ This is the gate that keeps AI output from turning into slop.
 
 - Every change gets a `/code-review` pass; a `/simplify` pass strips the cruft.
 - Commits stay small and conventional (`feat:`, `fix:`, `security(phase N):`), one logical change each.
-- Tests run before anything merges. The auditor ships 123 of them.
+- Tests run before anything merges. The auditor ships 148 of them.
 
 ## 5. Steer with instruction files
 
