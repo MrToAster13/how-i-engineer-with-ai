@@ -60,7 +60,7 @@ The result reads like something a person built with care, because the review gat
 
 ## Results
 
-- **200 tests, all passing** (verified by running the suite, not by trusting the count), gated in GitHub Actions across Python 3.8–3.13 on every push, plus a local pre-commit hook that runs them before each commit. They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
+- **200 tests, all passing** (verified by running the suite, not by trusting the count), gated in GitHub Actions on Python 3.8, 3.11, and 3.13 on every push, plus a local pre-commit hook that runs them before each commit. They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
 - **End-to-end offline render works** — `python smoketest.py` produces a full HTML report with executive summary, coverage map, severity breakdown, and fleet trend.
 - **Live path validated** once, by hand, against a real cloud Ubuntu 22.04 host, with the negative paths checked. The runbook is in `docs/validation.md`.
 - **A 90-entry CIS-to-NIST-800-53 / ISO-27001 crosswalk**, labeled non-authoritative and orientation-only throughout — because a hand-curated mapping should never be mistaken for an official control assessment.
