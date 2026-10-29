@@ -1,5 +1,7 @@
 # clear-not-compact — shipping an AI-workflow tool
 
+**Status: deprecated.** The plugin is no longer maintained. Built-in auto-compaction and a 1M-token context window removed the problem it solved. It is still installable so existing installs keep working. See the [mrtoaster13-plugins README](https://github.com/MrToAster13/mrtoaster13-plugins#readme).
+
 A Claude Code plugin I built and published. Instead of `/compact`, which swaps a session's real history for a lossy summary you then keep working on top of, it runs a persist-then-clear loop: write the session state to disk, `/clear` to an empty context, and read it back on purpose.
 
 Code: [`MrToAster13/mrtoaster13-plugins`](https://github.com/MrToAster13/mrtoaster13-plugins)

@@ -60,7 +60,7 @@ The result reads like something a person built with care, because the review gat
 
 ## Results
 
-- **200 tests, all passing** (verified by running the suite, not by trusting the count), gated in GitHub Actions on Python 3.8, 3.11, and 3.13 on every push, plus a local pre-commit hook that runs them before each commit. They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
+- **A pytest suite, all passing** (verified by running it, not by trusting a count; the current number is whatever `python -m pytest -q` reports in [the repo](https://github.com/MrToAster13/grc-fleet-scanner)), gated in GitHub Actions on Python 3.8, 3.11, and 3.13 on every push, plus a local pre-commit hook that runs them before each commit. They're decision-table tests over a fake remote host and real XCCDF-parsing fixtures — they exercise the load-bearing status logic, not trivial getters.
 - **End-to-end offline render works** — `python smoketest.py` produces a full HTML report with executive summary, coverage map, severity breakdown, and fleet trend.
 - **Live path validated** once, by hand, against a real cloud Ubuntu 22.04 host, with the negative paths checked. The runbook is in `docs/validation.md`.
 - **A 90-entry CIS-to-NIST-800-53 / ISO-27001 crosswalk**, labeled non-authoritative and orientation-only throughout — because a hand-curated mapping should never be mistaken for an official control assessment.
@@ -69,7 +69,7 @@ The result reads like something a person built with care, because the review gat
 
 I'd rather name these than have an interviewer find them.
 
-- **Live-validated on one host, once.** Offline logic is well covered (200 tests, now gated in CI); a real multi-host fleet run at scale hasn't happened. I don't yet know how it behaves across 200 hosts. This is the softest spot in the "validation complete" claim.
+- **Live-validated on one host, once.** Offline logic is well covered by the pytest suite, now gated in CI; a real multi-host fleet run at scale hasn't happened. I don't yet know how it behaves across 200 hosts. This is the softest spot in the "validation complete" claim.
 - **Ubuntu-only, assessment-only, active-scan-only.** No other OS, no auto-remediation, no CMDB ingestion. All deliberately out of scope for v1 and documented as such.
 - **The crosswalk is indicative, not authoritative.** It's labeled that way everywhere, but a reader skimming the report could over-trust it.
 

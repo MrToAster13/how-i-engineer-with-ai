@@ -104,4 +104,4 @@ One orchestrator for the pre-push ritual. It detects whether the repo is Python 
 
 ## Also shipped
 
-`clear-not-compact` is a skill too — a `/handoff` and `/resume` pair, packaged as an installable Claude Code plugin, that replaces `/compact` with a persist-then-clear loop. It has its own case study: [clear-not-compact](case-studies/clear-not-compact.md).
+`clear-not-compact` (deprecated) is a skill too — a `/handoff` and `/resume` pair, packaged as an installable Claude Code plugin, that replaces `/compact` with a persist-then-clear loop. It is no longer maintained, because built-in auto-compaction and a 1M-token context window removed the problem it solved. It has its own case study: [clear-not-compact](case-studies/clear-not-compact.md).
