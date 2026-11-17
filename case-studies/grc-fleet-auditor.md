@@ -21,7 +21,7 @@ discover (nmap) → classify → reach (SSH) → detect (oscap/SSG) → scan (os
   → persist (SQLite) → report (HTML/JSON/CSV + run-over-run drift)
 ```
 
-The package is about 5,000 lines of Python, with a larger test suite beside it. Each run writes to `grc-output/runs/<run_id>/`. A run folder holds the HTML report, machine-readable JSON and CSV, an audit log, the effective config, the raw OpenSCAP evidence per host, and a `manifest.json` with SHA-256 digests of the report files and the per-host evidence. A reviewer can use the manifest to confirm those files were not edited after the fact.
+Each run writes to `grc-output/runs/<run_id>/`. A run folder holds the HTML report, machine-readable JSON and CSV, an audit log, the effective config, the raw OpenSCAP evidence per host, and a `manifest.json` with SHA-256 digests of the report files and the per-host evidence. A reviewer can use the manifest to confirm those files were not edited after the fact.
 
 ## The decision I'm proudest of: never a false pass
 
