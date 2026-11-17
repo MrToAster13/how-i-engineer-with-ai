@@ -35,6 +35,7 @@ I put an `AGENTS.md` or `CLAUDE.md` at the top of a repo to set the rules the AI
 - A guardrail hook blocks dangerous git commands before Claude can run them: force-push, hard reset, and friends.
 - A permission allowlist scopes what the agent can do without asking.
 - Honesty rules in the instruction files: never claim work that isn't built, and never fabricate a result.
+- This repo checks itself. CI fails on a dead link, a leaked secret, or a doc that breaks its own writing rules.
 
 ## What this gets me
 
