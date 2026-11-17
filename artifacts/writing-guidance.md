@@ -1,6 +1,6 @@
 # Agent guidance
 
-This is my own instruction file, reproduced as an exhibit. I place it at the top of my repos to keep AI agents writing like a careful human instead of producing slop. It's original work.
+This is my own instruction file, reproduced as an exhibit. I placed it at the top of my repos until October 2026 to keep AI agents writing like a careful human instead of producing slop. It's original work. My repos now load pstack's `unslop` skill instead.
 
 ---
 
