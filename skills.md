@@ -96,7 +96,7 @@ A small formatter that turns missed practice-exam questions into tab-separated r
 
 ### pre-push
 
-One orchestrator for the pre-push ritual. It detects whether the repo is Python or Node, picks the matching lint/format/test tooling, then runs simplify → review → security → test → commit as gated stages. It stops only on a genuine failure: flaky network during a test run gets retried three times first, and it flips non-executable shell scripts to mode `100755` so they don't land broken on a Linux install. The runnable skill ships in [`mrtoaster13-plugins`](https://github.com/MrToAster13/mrtoaster13-plugins/tree/main/plugins/autonomous-workflows/skills/pre-push).
+One orchestrator for the pre-push ritual. It detects whether the repo is Python or Node, picks the matching lint/format/test tooling, then runs simplify → review → security → test → commit as gated stages. It stops only on a genuine failure: flaky network during a test run gets retried three times first, and it flips non-executable shell scripts to mode `100755` so they don't land broken on a Linux install. Its runnable copy lived in the `mrtoaster13-plugins` repo, which was removed on 2026-11-17, so the code is no longer public.
 
 **What it proves:** turning a manual release checklist into a deterministic pipeline, with the judgment calls — what's a real failure versus noise — encoded in the gates instead of left to the moment.
 
@@ -104,4 +104,4 @@ One orchestrator for the pre-push ritual. It detects whether the repo is Python 
 
 ## Also shipped
 
-`clear-not-compact` (deprecated) is a skill too — a `/handoff` and `/resume` pair, packaged as an installable Claude Code plugin, that replaces `/compact` with a persist-then-clear loop. It is no longer maintained, because built-in auto-compaction and a 1M-token context window removed the problem it solved. It has its own case study: [clear-not-compact](case-studies/clear-not-compact.md).
+`clear-not-compact` (deprecated) is a skill too — a `/handoff` and `/resume` pair, packaged as a Claude Code plugin, that replaces `/compact` with a persist-then-clear loop. It is no longer maintained, because built-in auto-compaction and a 1M-token context window removed the problem it solved, and its repo was removed on 2026-11-17. It has its own case study: [clear-not-compact](case-studies/clear-not-compact.md).
