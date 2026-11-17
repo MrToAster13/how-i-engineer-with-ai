@@ -1,18 +1,16 @@
 # clear-not-compact — shipping an AI-workflow tool
 
-**Status: deprecated.** The plugin is no longer maintained. Built-in auto-compaction and a 1M-token context window removed the problem it solved. It is still installable so existing installs keep working. See the [mrtoaster13-plugins README](https://github.com/MrToAster13/mrtoaster13-plugins#readme).
+**Status: deprecated.** The plugin is no longer maintained. Built-in auto-compaction and a 1M-token context window removed the problem it solved. The `mrtoaster13-plugins` repo that held it was removed from GitHub on 2026-11-17, so the code is no longer public and the plugin can no longer be installed.
 
 A Claude Code plugin I built and published. Instead of `/compact`, which swaps a session's real history for a lossy summary you then keep working on top of, it runs a persist-then-clear loop: write the session state to disk, `/clear` to an empty context, and read it back on purpose.
 
-Code: [`MrToAster13/mrtoaster13-plugins`](https://github.com/MrToAster13/mrtoaster13-plugins)
-
 ## What it is
 
-Two Claude Code skills — `/handoff` (distill a session into a numbered doc) and `/resume` (read the latest one back) — packaged as an installable plugin (MIT): a `plugin.json` and marketplace manifest, a `CONTEXT.md` glossary, three ADRs, and a worked example handoff.
+Two Claude Code skills — `/handoff` (distill a session into a numbered doc) and `/resume` (read the latest one back) — packaged as a plugin (MIT): a `plugin.json` and marketplace manifest, a `CONTEXT.md` glossary, three ADRs, and a worked example handoff.
 
 ## What's actually mine
 
-I'll be precise, because that's the point of this repo. The persist-then-clear **workflow** isn't my idea — it comes from a r/ClaudeCode thread, which the repo credits. What I did is turn that insight into a real, installable tool:
+I'll be precise, because that's the point of this repo. The persist-then-clear **workflow** isn't my idea — it comes from a r/ClaudeCode thread, which the repo credits. What I did is turn that insight into a real, packaged tool:
 
 - Packaged it as a Claude Code plugin with a marketplace manifest, plus a standalone-install path.
 - Wrote the design rationale as three ADRs: clear-and-resume over compaction; markdown as the canonical record with the GitHub issue optional; ship as both a plugin and standalone skills.
