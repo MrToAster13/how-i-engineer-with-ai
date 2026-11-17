@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tests for .githooks/pre-commit.
+# Tests for .githooks/pre-commit and .githooks/check-docs.sh.
 # Each test builds a throwaway repo under mktemp -d, runs the script inside it,
 # and asserts on the exit code and on the file the output names.
 # The --external tests need network access.
@@ -19,6 +19,9 @@ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 zeros() { printf "%0${1}d" 0; }
 github_pat() { printf 'github_pat_a_%s' "$(zeros $(($1 - 2)))"; }
 anthropic_key() { printf 'sk-ant-a-_%s' "$(zeros $(($1 - 3)))"; }
+em=$(printf '\342\200\224')
+dead_url=https://github.com/MrToAster13/mrtoaster13-plugins
+live_url=https://github.com/MrToAster13/grc-fleet-scanner
 
 # new_repo: make an empty repo and cd into it. Each test runs in a subshell.
 new_repo() {
@@ -153,6 +156,96 @@ test_hook_all_fails_when_git_cannot_list() {
   new_repo; put config.txt 'api_key = "abcdef123456"'; commit_all
   printf 'garbage' > .git/index
   run "$hooks/pre-commit" --all; errored
+}
+
+# check-docs.sh
+
+test_docs_blocks_dead_relative_link() {
+  new_repo; put README.md "[x](missing.md)"; git add -A
+  run "$hooks/check-docs.sh"; blocked README.md
+}
+test_docs_allows_live_relative_link() {
+  new_repo
+  put README.md "# top"
+  put docs/b.md "b"
+  put docs/a.md "[r](../README.md#top) [b](b.md) [d](./) [s](#local)"
+  git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_blocks_two_em_dashes() {
+  new_repo; put a.md "$(printf 'one %s two\nthree %s four' "$em" "$em")"; git add -A
+  run "$hooks/check-docs.sh"; blocked a.md
+}
+test_docs_allows_one_em_dash() {
+  new_repo; put a.md "one $em two"; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_blocks_banned_word() {
+  new_repo; put a.md "We Leverage the cache."; git add -A
+  run "$hooks/check-docs.sh"; blocked a.md
+}
+test_docs_allows_banned_word_inside_longer_word() {
+  new_repo; put a.md "Robustness is a goal."; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_exempts_writing_guidance() {
+  new_repo; put artifacts/writing-guidance.md "Avoid delve, leverage and robust."; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_reads_name_with_space() {
+  new_repo; put "my notes.md" "[x](missing.md)"; git add -A
+  run "$hooks/check-docs.sh"; blocked "my notes.md"
+}
+test_docs_checks_only_tracked_files() {
+  new_repo; put README.md "clean"; git add -A; put stray.md "[x](missing.md)"
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_checks_from_subdirectory() {
+  new_repo; put README.md "[x](missing.md)"; put sub/a.md "clean"; git add -A
+  cd sub || return 1
+  run "$hooks/check-docs.sh"; blocked README.md
+}
+test_docs_reads_name_starting_with_dash() {
+  new_repo; put ./-notes.md "[x](missing.md)"; git add -A
+  run "$hooks/check-docs.sh"; blocked -notes.md
+}
+test_docs_fails_when_git_cannot_list() {
+  new_repo; put README.md "[x](missing.md)"; commit_all
+  printf 'garbage' > .git/index
+  run "$hooks/check-docs.sh"; errored
+}
+test_docs_blocks_dead_reference_link() {
+  new_repo; put a.md "$(printf 'See [the notes][n].\n\n[n]: docs/missing.md')"; git add -A
+  run "$hooks/check-docs.sh"; blocked a.md
+}
+test_docs_allows_live_reference_link() {
+  new_repo; put a.md "$(printf 'See [the readme][r].\n\n[r]: README.md "Title"')"
+  put README.md "readme"; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_allows_footnote_definition() {
+  new_repo; put a.md "$(printf 'A claim.[^1]\n\n[^1]: Source text here.')"; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_blocks_dead_link_with_spaced_target() {
+  new_repo; put a.md "[x]( missing.md )"; git add -A
+  run "$hooks/check-docs.sh"; blocked a.md
+}
+test_docs_skips_external_links_without_flag() {
+  new_repo; put a.md "[p]($dead_url)"; git add -A
+  run "$hooks/check-docs.sh"; allowed
+}
+test_docs_external_blocks_dead_url() {
+  new_repo; put a.md "[p]($dead_url)"; git add -A
+  run "$hooks/check-docs.sh" --external; blocked a.md
+}
+test_docs_external_allows_live_url() {
+  new_repo; put a.md "[g]($live_url)"; git add -A
+  run "$hooks/check-docs.sh" --external; allowed
+}
+test_docs_external_allows_bold_bare_url() {
+  new_repo; put a.md "**$live_url**"; git add -A
+  run "$hooks/check-docs.sh" --external; allowed
 }
 
 passed=0 failed=0
